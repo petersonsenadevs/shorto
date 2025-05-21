@@ -16,6 +16,7 @@ class Url extends Model
       'custom_alias',
       'password',
       'description',
+      'is_active',
     ];
 
     public function user()

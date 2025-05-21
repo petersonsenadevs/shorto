@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Hash;
 class UpdateShortenUrlService{
 
     use UrlUtilsTrait;
-    public function updateUrl(?string $originalUrl, ?string $shortenUrl, ?string $customAlias, ?string $password,?string $description, string $urlId,?string $groupId = null,?bool $isActive = null,string $userId): array{
-           $url = $this->findUrlById($urlId, $userId);
+    public function updateUrl(?string $originalUrl, string $shortenUrl,?string $newShortenUrl, ?string $customAlias, ?string $password,?string $description,?string $groupId = null,?bool $isActive = null,string $userId){
+           $url = $this->findUrlByUserIdAndShortenedUrl($userId, $shortenUrl);
         if(!$url){
             throw new UrlNotFoundException();
         }
@@ -20,14 +20,15 @@ class UpdateShortenUrlService{
                 throw new ShortUrlExistException;
             }
         }
-     
-        DB::transaction(function () use ($url, $originalUrl, $shortenUrl, $customAlias, $password, $description, $groupId, $isActive) {
-            if($url != null){
+       
+        DB::transaction(function () use ($url, $originalUrl, $shortenUrl,$newShortenUrl, $customAlias, $password, $description, $groupId, $isActive) {
+            if($originalUrl != null){
             $url->original_url = $originalUrl;
         }
-        if($shortenUrl != null){
-            $url->shortened_url = $shortenUrl;
+        if($newShortenUrl != null){
+            $url->shortened_url = $newShortenUrl;
         }
+      
         if($customAlias != null){
             $url->custom_alias = $customAlias;
         }
@@ -45,7 +46,7 @@ class UpdateShortenUrlService{
         }
         $url->save();  
         });
-        return $url->select('shortened_url', 'original_url','custom_alias','description','is_active','id')->toArray();
+        return $url;
 
 
       

@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UpdateGroupRequest extends FormRequest
+class UpdateUrlRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,13 @@ class UpdateGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['nullable', 'string','min:3', 'max:255'],
-            'description' => ['nullable', 'string', 'min:3','max:255'],
+            'original_url' => ['nullable', 'url'],
+            'custom_alias' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:255'],
+            'password' => ['nullable', 'string', 'min:8'],
+            'new_shortened_url' => ['nullable', 'string', 'max:255'],
+            'group_id' => ['nullable', 'string', 'max:255'],
+            'is_active' => ['nullable', 'boolean'],
         ];
     }
 
@@ -37,4 +42,6 @@ class UpdateGroupRequest extends FormRequest
             ], 422)
         );
     }
+
+
 }

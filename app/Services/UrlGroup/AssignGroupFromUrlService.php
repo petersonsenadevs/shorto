@@ -10,9 +10,9 @@ class AssignGroupFromUrlService{
     use FindGroupByUserTrait;
     use UrlUtilsTrait;
     public function execute(string $groupId, string $urlId, string $userId): void{
-        $group = $this->findGroupByIds($userId, $groupId);
+        $group = $this->findGroupById($userId, $groupId);
         
-        $url = $this->findUrlById($urlId, $userId);
+        $url = $this->findUrlByUrlIdAndUserId($urlId, $userId);
         if (!$url) {
             throw new UrlNotFoundException();
         }

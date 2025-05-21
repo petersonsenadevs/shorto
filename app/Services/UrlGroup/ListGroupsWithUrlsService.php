@@ -3,17 +3,18 @@ declare(strict_types=1);
 namespace App\Services\UrlGroup;
 
 use App\Models\Group;
+use Illuminate\Database\Eloquent\Collection;
 
 class ListGroupsWithUrlsService{
 
 
-    public function execute(string $userID){
+    public function execute(string $userID): array{
        $groupsWithUrls = $this->searchGroupWithUrls($userID);
        $data = $this->prepareGroupData($groupsWithUrls);
        return $data;
     }
 
-    private function searchGroupWithUrls(string $userId){
+    private function searchGroupWithUrls(string $userId): Collection{
 
  
 

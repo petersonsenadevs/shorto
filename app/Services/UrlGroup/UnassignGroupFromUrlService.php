@@ -11,10 +11,10 @@ class UnassignGroupFromUrlService{
     use UrlUtilsTrait;
 
     public function execute(string $urlId, string $groupId, string $userId) {
-        $group = $this->findGroupByIds($userId, $groupId);
-        $url = $this->findUrlById($urlId, $userId);
+        $group = $this->findGroupById($userId, $groupId);
+        $url = $this->findUrlByUrlIdAndUserId($urlId, $userId);
         DB::transaction(function () use ($url, $group) {
-            $url->group_id = $group->id;
+            $url->group_id = null;
             $url->save();
         });
       

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class UpdateUserService{
 
-    public function updateUser(User $user, string $name, string $email, string $username): User{
+    public function updateUser(User $user, ?string $name = null, ?string $email= null, ?string $username= null): User{
       
       DB::transaction(function() use ($user, $name, $email, $username) {
           if($name != null){
@@ -23,7 +23,7 @@ class UpdateUserService{
         $user->save();
       });
         
-        return $user->select('name', 'email', 'username');
+        return $user->select('id','name', 'email', 'username');
 
 
 

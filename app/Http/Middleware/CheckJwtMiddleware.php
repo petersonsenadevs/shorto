@@ -41,8 +41,9 @@ class CheckJwtMiddleware
                 throw new InvalidTokenException;
             }
             $user = $this->findUserById($decoded->sub);
-            //auth()->setUser($user);
-                auth()->setUser($user);
+              $request->attributes->set('token', $token);
+            $request->attributes->set('user', $user);
+        
            // $request->attributes->set('token', $token);
          
 

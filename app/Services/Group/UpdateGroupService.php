@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class UpdateGroupService{
 use FindGroupByUserTrait;
-    public function execute(string $groupId, string $name, ?string $description, string $userId) {
+    public function execute(string $groupId, ?string $name, ?string $description, string $userId) {
 
         $group = $this->findGroupById($userId, $groupId);
     DB::transaction(function () use ($group, $name, $description) {

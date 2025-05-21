@@ -7,11 +7,11 @@ use App\Models\Url;
 use Illuminate\Support\Facades\DB;
 
 class DeleteUrlByShortCodeService{
+use UrlUtilsTrait;
 
-
-    public function deleteUrlById(string $shortUrl): void
+    public function deleteUrlByShortCodeAndUserId(string $shortUrl,string $userId): void
     {
-       $url= Url::where('shortened_url', $shortUrl)->first();
+       $url= $this->findUrlByUserIdAndShortenedUrl($userId, $shortUrl);
        if(!$url){
         throw new UrlNotFoundException();
        }

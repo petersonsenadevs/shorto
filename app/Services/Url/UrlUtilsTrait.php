@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Services\Url;
 use App\Exceptions\ShortUrlExistException;
 use App\Models\Url;
+use Illuminate\Database\Eloquent\Collection;
 
 trait UrlUtilsTrait{
      
@@ -28,9 +29,13 @@ trait UrlUtilsTrait{
     return Url::where('shortened_url', $shortenedUrl)->exists();
   }
 
-  public function findUrlById(string $urlId, string $userId): ?Url
+  public function findUrlByUrlIdAndUserId(string $urlId, string $userId): ?Url
   {
     return Url::where('user_id', $userId)->where('id', $urlId)->first();
+  }
+  
+  public function findUrlByUserIdAndShortenedUrl(string $userId, string $shortenedUrl): ?Url{
+    return Url::where('user_id', $userId)->where('shortened_url', $shortenedUrl)->first();
   }
 
     public function findUrlByShortenedUrl(string $shortenedUrl): ?Url
@@ -38,9 +43,9 @@ trait UrlUtilsTrait{
         return Url::where('shortened_url', $shortenedUrl)->first();
     }
 
-    private function listUrlsByUserId(string $userId): array
+    private function listUrlsByUserId(string $userId): Collection
     {
-        return Url::where('user_id', $userId)->get()->select('shortened_url', 'original_url','custom_alias','description','is_active','id')->toArray();
+        return Url::where('user_id', $userId)->get()->select('shortened_url', 'original_url','custom_alias','description','is_active','id');
     }
 
     

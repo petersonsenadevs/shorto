@@ -16,7 +16,7 @@ class DeleteShortUrlcontroller extends Controller
     public function __invoke(Request $request, string $shortUrl)
     {
         try {
-        $this->deleteUrlByShortCodeService->deleteUrlById($shortUrl);
+        $this->deleteUrlByShortCodeService->deleteUrlByShortCodeAndUserId($shortUrl, $request->user()->id);
 
         return response()->json([
             'message' => 'Short URL deleted successfully',

@@ -9,7 +9,7 @@ use App\Services\Url\ShortenUrlService;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
-class ShortUrlController extends Controller
+class ShortenUrlController extends Controller
 {
     public function __construct(private ShortenUrlService $shortenUrlService) {}
 
@@ -17,7 +17,7 @@ class ShortUrlController extends Controller
     {
         $data = $request->all();
         try {
-            $shortUrl = $this->shortenUrlService->shortenUrl($data['original_url'], $data['shortened_url'] ?? null, $data['custom_alias'] ?? null, $data['password'] ?? null, $data['description'] ?? null, $request->user()->id);
+            $shortUrl = $this->shortenUrlService->shortenUrl($request->original_url , $request->shorten_url, $request->custom_alias, $request->password, $request->description, $request->user()->id, $request->group_id);
 
             return response()->json([
                 'short_url' => $shortUrl,

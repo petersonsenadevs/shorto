@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class CreateUrlGroupService {
 
-    public function execute(User $user, string $name, ?string $description) {
-        DB::transaction(function () use ($user, $name, $description) {
+    public function execute(string $userId, string $name, ?string $description) {
+        DB::transaction(function () use ($userId, $name, $description) {
              Group::create([
-           'user_id' => $user->id,
+           'user_id' => $userId,
            'name' => $name,
            'description' => $description??''
        ]);

@@ -12,7 +12,7 @@ class CreateUrlGroupController extends Controller
     public function __construct(private CreateUrlGroupService $createUrlGroupService){}
 
     public function __invoke(CreateUrlGroupRequest $request) {
-         $this->createUrlGroupService->execute($request->user(), $request->name, $request->description);
+         $this->createUrlGroupService->execute($request->user()->id, $request->name, $request->description);
 
          return response()->json(['message' => 'Group created successfully'], 201);
     }

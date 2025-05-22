@@ -14,11 +14,12 @@ class UpdateUrlInfoTool
     use \App\Services\Url\UrlUtilsTrait;
 
 
-    public function __invoke(?string $customAlias = null, ?string $description = null, ?string $password = null, string $shortenedUrl, ?string $newShortenedUrl = null, ?string $originalUrl = null, ?string $groupId = null, ?bool $isActive = null)
+    public function __invoke(string $shortenedUrl,?string $customAlias = null, ?string $description = null, ?string $password = null,  ?string $newShortenedUrl = null, ?string $originalUrl = null, ?string $groupId = null, ?bool $isActive = null)
     {
 
-        $url = $this->findUrlByUserIdWithShortenedUrl(request()->user()->id, $shortenedUrl);
-        echo $url;
+        $url = $this->findUrlByUserIdAndShortenedUrl(request()->user()->id, $shortenedUrl);
+    echo "URL ID: ";
+    echo $url->id;
         if (!$url) {
             return 'URL not found';
         }
@@ -47,13 +48,13 @@ class UpdateUrlInfoTool
 
     private function updateUrl(?string $customAlias = null, ?string $description = null, ?string $password = null, string $shortenedUrl, ?string $newShortenedUrl = null, ?string $originalUrl = null, ?string $groupId = null, ?bool $isActive = null, Url $url)
     {
-        echo "Editando";
+       
         if ($newShortenedUrl != null) {
             if ($this->isUrlExists($newShortenedUrl)) {
                 return 'Shortened URL already exists';
             }
         }
-        echo $description;
+      
      
       
             if ($originalUrl != null) {

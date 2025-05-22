@@ -12,7 +12,7 @@ class CreateGroupTool{
     }
     public function __invoke(string $groupName, ?string $description = null)
     {
-       $this->createUrlGroupService->execute(request()->user(), $groupName, $description); // Validate the input
+       $this->createUrlGroupService->execute(request()->user()->id, $groupName, $description); // Validate the input
       
     }
 }

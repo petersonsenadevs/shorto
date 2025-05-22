@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\v1\Agent\AgentChatController;
+use App\Http\Controllers\Api\v1\Agent\Conversation\DeleteConversationController;
+use App\Http\Controllers\Api\v1\Agent\Conversation\ListConvertsarionController;
 use App\Http\Controllers\Api\v1\Agent\ConversationController;
 use App\Http\Controllers\Api\v1\Agent\SendMessageController;
+use App\Http\Controllers\Api\v1\Agent\SendMessageControllerc;
 use App\Http\Controllers\Api\v1\AuthController\AuthController;
 use App\Http\Controllers\Api\v1\Group\CreateUrlGroupController;
 use App\Http\Controllers\Api\v1\Group\DeleteUrlGroupController;
@@ -45,7 +49,11 @@ Route::middleware(['check.blocked.ip','throttle:global','jwt.auth','check.redis.
     Route::post('/group/unassign', UnassignGroupFromUrlController::class)->name('group.unassign');
     Route::get('/group/list', ListGroupsWithUrlsController::class)->name('group.list');
 
- 
+    //Chat Routes
+    Route::post('/chat/send', SendMessageController::class)->name('chat.send');
+    Route::post('/conversation', ConversationController::class)->name('conversation.create');
+    Route::delete('/conversation', DeleteConversationController::class)->name('conversation.delete');
+    Route::get('/conversation/list', ListConvertsarionController::class)->name('conversation.list');
 
 
 });

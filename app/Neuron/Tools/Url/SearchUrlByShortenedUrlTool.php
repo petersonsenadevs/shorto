@@ -13,7 +13,7 @@ class SearchUrlByShortenedUrlTool  {
     }
     public function __invoke(string $shortened_url)
     {
-        $shortCode = $this->findUrlByUserIdWithShortenedUrl(request()->user()->id,$shortened_url);
+        $shortCode = $this->findUrlByUserIdAndShortenedUrl(request()->user()->id,$shortened_url);
         if ($shortCode === null) {
            return '';
         }

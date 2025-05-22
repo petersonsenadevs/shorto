@@ -17,7 +17,7 @@ class DeleteUrlTool
     public function __invoke(string $shortenedUrl)
     {
         try {
-            $this->deleteUrlByShortCodeService->deleteUrlById($shortenedUrl, request()->user()->id);
+            $this->deleteUrlByShortCodeService->deleteUrlByShortCodeAndUserId($shortenedUrl, request()->user()->id);
             return 'URL deleted successfully';
         } catch (UrlNotFoundException $e) {
             return 'Error deleting URL: ' . $e->getMessage();

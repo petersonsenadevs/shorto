@@ -10,10 +10,10 @@ class UnassignGroupFromUrlService{
     use FindGroupByUserTrait;
     use UrlUtilsTrait;
 
-    public function execute(string $urlId, string $groupId, string $userId) {
+    public function execute(string $shortenedUrl, string $groupId, string $userId) {
         $group = $this->findGroupById($userId, $groupId);
-        $url = $this->findUrlByUrlIdAndUserId($urlId, $userId);
-        DB::transaction(function () use ($url, $group) {
+        $url = $this->findUrlByUserIdAndShortenedUrl($userId, $shortenedUrl);
+        DB::transaction(function () use ($url, ) {
             $url->group_id = null;
             $url->save();
         });

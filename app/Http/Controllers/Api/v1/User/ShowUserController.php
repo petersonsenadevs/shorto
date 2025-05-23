@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 
 class ShowUserController extends Controller
 {
-    public function __construct(
-        private ShowUserService $showUserService,
-    ) {
-    }
+  
 
     public function __invoke(Request $request)
     {

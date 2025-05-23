@@ -45,7 +45,7 @@ trait UrlUtilsTrait{
 
     private function listUrlsByUserId(string $userId): Collection
     {
-        return Url::where('user_id', $userId)->get()->select('shortened_url', 'original_url','custom_alias','description','is_active','id');
+        return Url::where('user_id', $userId)->get()->select('id','shortened_url', 'original_url','custom_alias','description','is_active');
     }
 
     

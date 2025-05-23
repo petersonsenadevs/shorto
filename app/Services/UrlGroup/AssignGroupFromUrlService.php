@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\DB;
 class AssignGroupFromUrlService{
     use FindGroupByUserTrait;
     use UrlUtilsTrait;
-    public function execute(string $groupId, string $urlId, string $userId): void{
+    public function execute(string $groupId, string $shortenedUrl, string $userId): void{
         $group = $this->findGroupById($userId, $groupId);
         
-        $url = $this->findUrlByUrlIdAndUserId($urlId, $userId);
+        $url = $this->findUrlByUserIdAndShortenedUrl($userId, $shortenedUrl);
         if (!$url) {
             throw new UrlNotFoundException();
         }

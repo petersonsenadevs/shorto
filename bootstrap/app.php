@@ -5,6 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Facades\Cache;
+use Inspector\Laravel\Middleware\WebRequestMonitoring;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -22,6 +23,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'check.blocked.ip' => \App\Http\Middleware\CheckBlockedIpRedisMiddleware::class,
             'check.redis.token' => \App\Http\Middleware\CheckRedisTokenMiddleware::class,
         ]);
+        $middleware->appendToGroup('web', WebRequestMonitoring::class)
+            ->appendToGroup('api', WebRequestMonitoring::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
          $exceptions->render(function (ThrottleRequestsException $e, $request) {

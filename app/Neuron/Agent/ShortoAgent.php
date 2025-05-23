@@ -29,6 +29,7 @@ use App\Services\Group\UpdateGroupService;
 use App\Services\UrlGroup\AssignGroupFromUrlService;
 use App\Services\UrlGroup\ListGroupsWithUrlsService;
 use App\Services\UrlGroup\UnassignGroupFromUrlService;
+use NeuronAI\MCP\McpConnector;
 
 class ShortoAgent extends Agent
 {
@@ -111,22 +112,16 @@ class ShortoAgent extends Agent
                     'Contraseña para acceder a la URL. (opcional)',
                     false
                 )
+            
             )->addProperty(
                 new ToolProperty(
-                    'groupId',
+                    'shortenedUrl',
                     'string',
-                    'ID del grupo al que deseas agregar la URL. (opcional)',
+                    'URL acortada. (opcional)',
                     false
                 )
-            )->addProperty(
-                new ToolProperty(
-                    'isActive',
-                    'boolean',
-                    'Estado de la URL (activa/inactiva). (opcional)',
-                    false
-
-                )
-            )->setCallable(
+            )
+            ->setCallable(
                 new ShortenUrlTool(app(ShortenUrlService::class))
             ),
             Tool::make(
@@ -343,7 +338,12 @@ class ShortoAgent extends Agent
             )
                 ->setCallable(
                     new UserShowUserInfoTool()
-                )
+                ),
+                 ...McpConnector::make([
+                'command' => 'npx',
+                'args' => ['-y', '@modelcontextprotocol/server-brave-search'],
+                'env'=> ['BRAVE_API_KEY' => env('BRAVE_API_KEY')],
+            ])->tools(),
         ];
     }
 }

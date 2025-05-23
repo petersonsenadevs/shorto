@@ -18,8 +18,7 @@ class UpdateUrlInfoTool
     {
 
         $url = $this->findUrlByUserIdAndShortenedUrl(request()->user()->id, $shortenedUrl);
-    echo "URL ID: ";
-    echo $url->id;
+  
         if (!$url) {
             return 'URL not found';
         }
@@ -68,8 +67,7 @@ class UpdateUrlInfoTool
                 $url->password = Hash::make($password);
             }
             if ($description != null || $description != '') {
-                echo $description;
-                echo "Description";
+               
                 $url->description = $description;
             }
             if ($groupId != null) {

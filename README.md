@@ -19,9 +19,7 @@ Shorto es una aplicación moderna de acortamiento de URLs con funcionalidades av
 - Registro y autenticación JWT 
 - Sistema de roles y permisos 
 - Gestión de perfil de usuario
-#### 💳 Sistema de Suscripciones
-- Integración con Laravel Cashier 
-- Gestión de suscripciones y pagos
+
 #### 🛠️ Tecnologías Utilizadas
 - `Backend`: Laravel 12
 - `Base de Datos`: MySQL

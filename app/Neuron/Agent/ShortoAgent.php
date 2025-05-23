@@ -43,7 +43,7 @@ class ShortoAgent extends Agent
     public function provider(): AIProviderInterface
     {
         return new Gemini(
-            key: 'AIzaSyDT3CyjpfWLxOWHCFzdlzRbOEM7Ag-BFDI',
+            key: env('GEMINI_API_KEY'),
             model: 'gemini-2.0-flash',
         );
     }

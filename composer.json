@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.2",
         "firebase/php-jwt": "^6.11",
+        "inspector-apm/inspector-laravel": "*",
         "inspector-apm/neuron-ai": "^1.9",
         "laravel/cashier": "^15.6",
         "laravel/framework": "^12.0",
